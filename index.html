@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Замени этот заголовок</title>
+<title>Землетрясения: справочник по географии</title>
 <style>
-  :root { --bg: #fbfbfa; --fg: #1a1a18; --dim: #6b6b66; --line: #e4e4e0; }
+  :root { --bg: #fbfbfa; --fg: #1a1a18; --dim: #6b6b66; --line: #e4e4e0; --hot: #c2410c; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #16161a; --fg: #f0f0ee; --dim: #9a9a95; --line: #2e2e34; }
+    :root { --bg: #16161a; --fg: #f0f0ee; --dim: #9a9a95; --line: #2e2e34; --hot: #fb923c; }
   }
   * { box-sizing: border-box; }
   body {
@@ -17,29 +17,140 @@
   }
   main { max-width: 34rem; width: 100%; }
   h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 .75rem; }
+  h2 { font-size: 1.15rem; margin: 36px 0 12px; }
   p { margin: 0 0 1rem; }
   .dim { color: var(--dim); }
-  .box { border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-top: 28px; }
-  code { background: var(--line); padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+
+  /* Список стран: название, плита, пример. */
+  .country { border-top: 1px solid var(--line); padding: 14px 0; }
+  .country:last-of-type { border-bottom: 1px solid var(--line); }
+  .country b { display: block; }
+  .plate { color: var(--hot); font-size: .95em; }
+  .country .dim { font-size: .9em; }
+
+  /* Схема «Огненного кольца»: сетка 3 на 3, в середине океан, по краям страны. */
+  .ring {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+    margin: 0 0 12px; text-align: center; font-size: .8rem;
+  }
+  .ring span { border: 1px solid var(--hot); border-radius: 8px; padding: 8px 4px; }
+  .ring .sea {
+    border: 0; color: var(--dim); display: flex; align-items: center;
+    justify-content: center; font-size: .75rem;
+  }
+  .ring .gap { border: 0; }
+
+  /* Вопросы: закрыты, по нажатию открывается ответ. */
+  details { border-top: 1px solid var(--line); padding: 12px 0; }
+  details:last-of-type { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 10px 0 0; }
 </style>
 </head>
 <body>
 <main>
 
-  <h1>Страница работает</h1>
+  <h1>Землетрясения: где и почему</h1>
 
-  <p>Если ты это читаешь в интернете, а не у себя на компьютере, — значит весь путь уже собран:
-  репозиторий есть, страница опубликована, ссылку можно кинуть другу.</p>
+  <p class="dim">Коротко: шесть стран, которые трясёт чаще всего, и шесть вопросов с ответами.
+  Нажми на вопрос — откроется ответ.</p>
 
-  <p class="dim">Это всё, что здесь должно быть. Содержимое придумаешь ты, а сделает ИИ.</p>
+  <h2>Где трясёт чаще всего</h2>
 
-  <div class="box">
-    <p><strong>Твой следующий ход.</strong></p>
-    <p>Открой <code>zadanie-1.md</code> и напиши, какую страницу ты хочешь — <strong>до того</strong>, как попросишь ИИ.
-    Потом попроси. Потом запусти <code>./check.sh</code>.</p>
-    <p class="dim">Проверка сейчас краснеет на заголовке этой страницы: он так и называется
-    «Замени этот заголовок». Это нарочно.</p>
+  <div class="country">
+    <b>Япония</b>
+    <span class="plate">Стык четырёх плит: Тихоокеанской, Филиппинской, Евразийской и Охотской</span>
+    <span class="dim">Тихоокеанская плита уходит под Японию в Японский жёлоб. 2011 год, магнитуда 9,0.</span>
   </div>
+
+  <div class="country">
+    <b>Индонезия</b>
+    <span class="plate">Индо-Австралийская плита уходит под Зондскую</span>
+    <span class="dim">Здесь же цепочка вулканов. 2004 год, Суматра, магнитуда 9,1.</span>
+  </div>
+
+  <div class="country">
+    <b>Чили</b>
+    <span class="plate">Плита Наска уходит под Южно-Американскую</span>
+    <span class="dim">Из этого столкновения выросли Анды. 1960 год, магнитуда 9,5 — самое сильное из измеренных.</span>
+  </div>
+
+  <div class="country">
+    <b>Турция</b>
+    <span class="plate">Анатолийскую плиту сдавливают Евразийская и Арабская</span>
+    <span class="dim">Плиты не подползают, а скользят мимо друг друга по Северо-Анатолийскому разлому. 2023 год, магнитуда 7,8.</span>
+  </div>
+
+  <div class="country">
+    <b>Непал</b>
+    <span class="plate">Индийская плита давит в Евразийскую</span>
+    <span class="dim">Это столкновение поднимает Гималаи — и до сих пор продолжается. 2015 год, магнитуда 7,8.</span>
+  </div>
+
+  <div class="country">
+    <b>Италия</b>
+    <span class="plate">Африканская плита давит в Евразийскую</span>
+    <span class="dim">Толчки слабее, но города старые, поэтому разрушения сильные. 2016 год, магнитуда 6,2.</span>
+  </div>
+
+  <h2>Огненное кольцо</h2>
+
+  <div class="ring">
+    <span>Камчатка</span>
+    <span>Аляска</span>
+    <span class="gap"></span>
+    <span>Япония</span>
+    <span class="sea">Тихий океан</span>
+    <span>Калифорния</span>
+    <span>Индонезия</span>
+    <span>Перу</span>
+    <span>Чили</span>
+  </div>
+
+  <p class="dim">Края Тихого океана. Почти везде по этому кольцу одна плита уходит под другую —
+  поэтому здесь и землетрясения, и вулканы.</p>
+
+  <h2>Вопросы</h2>
+
+  <details>
+    <summary>Почему земля трясётся?</summary>
+    <p>Верхняя каменная оболочка Земли разбита на плиты, и они медленно двигаются.
+    На границах плиты цепляются друг за друга, напряжение растёт — и в какой-то момент
+    порода срывается. Этот рывок мы и чувствуем.</p>
+  </details>
+
+  <details>
+    <summary>Что такое литосферные плиты?</summary>
+    <p>Огромные куски твёрдой оболочки Земли — на них лежат материки и дно океанов.
+    Они едут по горячему вязкому слою под ними со скоростью несколько сантиметров в год:
+    примерно как растут ногти.</p>
+  </details>
+
+  <details>
+    <summary>Почему трясёт по краям плит, а не в середине?</summary>
+    <p>В середине плита едет целиком, и внутри неё ничто не рвёт. А на краю она упирается
+    в соседнюю. Там трение, там копится напряжение, там и рвётся.</p>
+  </details>
+
+  <details>
+    <summary>Что такое «Огненное кольцо»?</summary>
+    <p>Полоса вдоль берегов Тихого океана: Камчатка, Япония, Индонезия, Аляска, Калифорния,
+    Перу, Чили. На её долю приходится около 90% всех землетрясений мира.</p>
+  </details>
+
+  <details>
+    <summary>Что такое магнитуда?</summary>
+    <p>Число, которым измеряют силу самого землетрясения. Шкала хитрая: каждая единица —
+    это примерно в 32 раза больше энергии. Магнитуда 7 — не «чуть сильнее» шестёрки,
+    а в десятки раз сильнее.</p>
+  </details>
+
+  <details>
+    <summary>Что делать, когда трясёт?</summary>
+    <p>Внутри помещения: сразу вниз, под крепкий стол, держись за его ножку.
+    Подальше от окон и шкафов. Лифтом нельзя. На улице — на открытое место,
+    дальше от стен и проводов.</p>
+  </details>
 
 </main>
 </body>
